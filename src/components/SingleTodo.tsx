@@ -44,11 +44,13 @@ useEffect(() => {
 }, [edit])
 
   return (
-    <Draggable droppableId = {todo.id.toString()} index={index}> 
+    <Draggable draggableId={todo.id.toString()} index={index}> 
     {
       (provided) => (
         <form className='todos-single' onSubmit={(e)=>handleEdit(e,todo.id)}
         {...provided.draggableProps}
+        {...provided.dragHandleProps}
+        ref={provided.innerRef}  
         >
         { edit ? (
             <input 
@@ -62,7 +64,6 @@ useEffect(() => {
                 <span className='todos_single-text'>{todo.todo}</span>
               )
         }
-       
         <div>   
           <span className='icon'
           onClick = {()=>{
