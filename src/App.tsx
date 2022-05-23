@@ -3,11 +3,13 @@ import './App.css';
 import InputField from './components/InputField';
 import Todolist from './components/Todolist';
 import { Todo } from './model';
+import { DragDropContext } from 'react-beautiful-dnd';
 
 
 const App : React.FC = () => {
   const [todo,setTodo] = useState<string>('');
   const [todos, setTodos] = useState<Todo[]>([])
+  const [completedTodos, setCompletedTodos] = useState<Todo[]>([])
 
   const handleAdd = (e:React.FormEvent) => {
     e.preventDefault();
@@ -21,11 +23,19 @@ const App : React.FC = () => {
   console.log(todos);
   
   return (
-    <div className="App"> 
+    <DragDropContext onDragEnd={() => {}}>
+      <div className="App"> 
       <h1 className="heading">Syfon's Taskify</h1>
       <InputField todo={todo} setTodo={setTodo} handleAdd = {handleAdd}/>
-      <Todolist todos={todos} setTodos={setTodos}/>
+      <Todolist 
+        todos={todos} 
+        setTodos={setTodos}
+        completedTodos = {completedTodos}
+        setCompletedTodos = {setCompletedTodos}
+      />
     </div>
+    </DragDropContext>
+    
   );
 }
 
